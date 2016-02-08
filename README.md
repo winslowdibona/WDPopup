@@ -29,3 +29,7 @@ let loginAction = WDPopupAction(title: "Login") { () -> Void in
 let popup = WDPopup(title: "Login", textFields: [emailTextField, passwordTextField], actions: [cancelAction, loginAction])
 popup.present()
 ````
+
+
+##Installation
+Just drag and drop WDPopup.swift into your project
