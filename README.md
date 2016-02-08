@@ -14,6 +14,7 @@ let popup = WDPopup(title: "Simple Popup", message: "Popup with a simple message
 popup.present()
 ```
 
+You can customize the appearance of a text field by accessing it via the WDPopupTextField's textField property shown below
 Login Popup Example 
 ````swift
 let emailTextField = WDPopupTextField(title: "Email")
