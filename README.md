@@ -2,7 +2,7 @@
 
 Simple, customizable Popup written in Swift
 
-Inspired by CZPicker https://github.com/chenzeyu/CZPicker
+Inspired by [CZPicker](https://github.com/chenzeyu/CZPicker)
 
 
 Simple Message Popup Example
