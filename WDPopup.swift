@@ -7,6 +7,73 @@ enum WDPopupType {
     case Toast
 }
 
+struct WDPopupAction {
+    
+    var title : String!
+    var textFields : [WDPopupTextField]!
+    var completionBlock : (() -> Void)!
+    
+    init(title : String, completionBlock : (() -> Void)?) {
+        self.title = title
+        self.completionBlock = completionBlock
+    }
+    
+    init(title : String, textFields : [WDPopupTextField], completionBlock : (() -> Void)?) {
+        self.title = title
+        self.textFields = textFields
+        self.completionBlock = completionBlock
+    }
+    
+    func selected() {
+        if completionBlock != nil {
+            if NSThread.isMainThread() {
+                completionBlock()
+            } else {
+                dispatch_sync(dispatch_get_main_queue(), { () -> Void in
+                    self.completionBlock
+                })
+            }
+        }
+    }
+    
+}
+
+struct WDPopupTextField {
+    
+    var title : String!
+    var textField : UITextField!
+    
+    init(title : String) {
+        self.title = title
+        self.textField = UITextField()
+    }
+    
+}
+
+struct WDMessagePopup {
+    var title : String
+    var message : String
+    var actions : [WDPopupAction]
+    
+    init(title : String, message : String, actions : [WDPopupAction]) {
+        self.title = title
+        self.message = message
+        self.actions = actions
+    }
+}
+
+struct WDInputPopup {
+    var title : String
+    var actions : [WDPopupAction]
+    var textFields : [WDPopupTextField]
+    
+    init(title : String, actions : [WDPopupAction], textFields : [WDPopupTextField]) {
+        self.title = title
+        self.actions = actions
+        self.textFields = textFields
+    }
+}
+
 class WDPopup: UIView {
     
     var headerView : UIView!
@@ -42,11 +109,9 @@ class WDPopup: UIView {
         self.frame = UIScreen.mainScreen().bounds
     }
     
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
     
     func present() {
         let window = UIApplication.sharedApplication().windows.first!
@@ -60,9 +125,6 @@ class WDPopup: UIView {
             self.dimmingView.alpha = 0.9
             }) { (success) -> Void in}
     }
-    
-    
-    
     
     func setupSubviews() {
         if dimmingView == nil {
@@ -82,11 +144,6 @@ class WDPopup: UIView {
             self.headerView.frame.size.height + self.contentView.frame.size.height + self.buttonView.frame.size.height)
         containerView.center = CGPointMake(self.center.x, self.center.y + self.frame.size.height)
     }
-    
-    
-    
-    
-    
     
     func buildHeaderView() {
         let rect = CGRectMake(0.0, 0.0, containerView.frame.size.width, 50.0)
@@ -176,8 +233,6 @@ class WDPopup: UIView {
         containerView.addSubview(contentView)
     }
     
-    
-    
     func buildContainerView() {
         let transform = CGAffineTransform(a: 0.8, b: 0, c: 0, d: 0.8, tx: 0, ty: 0)
         let rect = CGRectApplyAffineTransform(frame, transform)
@@ -232,8 +287,6 @@ class WDPopup: UIView {
             }, completion: nil)
     }
     
-    
-    // Handling Rotation
     func deviceOrientationDidChange(notification : NSNotification) {
         self.frame = UIScreen.mainScreen().bounds
         for v in subviews {
@@ -248,74 +301,5 @@ class WDPopup: UIView {
                     }
             })
         }
-    }
-    
-}
-
-struct WDPopupAction {
-    
-    var title : String!
-    var textFields : [WDPopupTextField]!
-    var completionBlock : (() -> Void)!
-    
-    init(title : String, completionBlock : (() -> Void)?) {
-        self.title = title
-        self.completionBlock = completionBlock
-    }
-    
-    init(title : String, textFields : [WDPopupTextField], completionBlock : (() -> Void)?) {
-        self.title = title
-        self.textFields = textFields
-        self.completionBlock = completionBlock
-    }
-    
-    func selected() {
-        if completionBlock != nil {
-            if NSThread.isMainThread() {
-                completionBlock()
-            } else {
-                dispatch_sync(dispatch_get_main_queue(), { () -> Void in
-                    self.completionBlock
-                })
-            }
-        }
-    }
-    
-}
-
-
-struct WDPopupTextField {
-    
-    var title : String!
-    var textField : UITextField!
-    
-    init(title : String) {
-        self.title = title
-        self.textField = UITextField()
-    }
-    
-}
-
-struct WDMessagePopup {
-    var title : String
-    var message : String
-    var actions : [WDPopupAction]
-    
-    init(title : String, message : String, actions : [WDPopupAction]) {
-        self.title = title
-        self.message = message
-        self.actions = actions
-    }
-}
-
-struct WDInputPopup {
-    var title : String
-    var actions : [WDPopupAction]
-    var textFields : [WDPopupTextField]
-    
-    init(title : String, actions : [WDPopupAction], textFields : [WDPopupTextField]) {
-        self.title = title
-        self.actions = actions
-        self.textFields = textFields
     }
 }

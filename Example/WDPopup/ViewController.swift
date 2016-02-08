@@ -17,8 +17,8 @@ class ViewController: UIViewController {
     }
 
     func tapped() {
-        let popupTextField = WDPopupTextField(title: "Test")
-        let popupAction = WDPopupAction(title: "Enter") { () -> Void in
+        let popupTextField = WDPopupTextField(title: "Action")
+        let popupAction = WDPopupAction(title: "Enter something") { () -> Void in
             print(popupTextField.textField.text)
         }
         let popup = WDPopup(title: "Test", textFields: [popupTextField], actions: [popupAction])
