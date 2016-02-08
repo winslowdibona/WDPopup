@@ -1,8 +1,6 @@
 # WDPopup
 
-Simple, customizable Popup written in Swift
-
-Inspired by [CZPicker](https://github.com/chenzeyu/CZPicker)
+Simple, customizable Popup written in Swift, inspired by [CZPicker](https://github.com/chenzeyu/CZPicker)
 
 
 Simple Message Popup Example
