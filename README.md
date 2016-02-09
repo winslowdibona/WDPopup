@@ -28,6 +28,24 @@ let popup = WDPopup(title: "Login", textFields: [emailTextField, passwordTextFie
 popup.present()
 ````
 
+####WDPopupTextField Appearance Attributes
+All of these have default values but you can customize as you like before presenting the popup
+````swift
+var backgroundColor : UIColor
+var textAlignment : NSTextAlignment
+var textColor : UIColor
+var textFont : UIFont
+var secureTextEntry : Bool
+var clearButtonMode : UITextFieldViewMode
+var clearsOnBeingEditing : Bool
+var keyboardType : UIKeyboardType
+var placeholderTextColor : UIColor
+var borderWidth : CGFloat
+var borderColor : UIColor
+var cornerRadius : CGFloat
+var masksToBounds : Bool
+````
+
 
 ##Installation
 Just drag and drop WDPopup.swift into your project
