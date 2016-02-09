@@ -45,6 +45,11 @@ var borderColor : UIColor
 var cornerRadius : CGFloat
 var masksToBounds : Bool
 ````
+If you want further customization you can set textField properties directly by accessing the UITextField property in WDPopupTextField and telling WDPopupTextField you'll be customizing it manually in the init method. 
+````swift
+var popupTextField = WDPopupTextField(title : "Text Field", customAppearance : true)
+popupTextField.textField.textAlignment = .Center
+````
 
 
 ##Installation
