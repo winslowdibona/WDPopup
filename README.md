@@ -3,7 +3,7 @@
 Simple, customizable Popup written in Swift, inspired by [CZPicker](https://github.com/chenzeyu/CZPicker)
 
 
-Simple Message Popup Example
+####Simple Message Popup Example
 ```swift
 let action = WDPopupAction(title: "Ok") { () -> Void in
 //do something here
@@ -12,17 +12,17 @@ let popup = WDPopup(title: "Simple Popup", message: "Popup with a simple message
 popup.present()
 ```
 
-You can customize the appearance of a text field by accessing it via the WDPopupTextField's textField property shown below
-Login Popup Example 
+####Login Popup Example
+You can customize the appearance of a text field by setting the WDPopupTextField's appearance properties detailed below. Right before presenting, WDPopup will apply any appearance attributes you configure to the text field. 
 ````swift
-let emailTextField = WDPopupTextField(title: "Email")
-emailTextField.textField.keyboardType = .EmailAddress
-let passwordTextField = WDPopupTextField(title: "Password")
-passwordTextField.textField.secureTextEntry = true
+var emailTextField = WDPopupTextField(title: "Email")
+emailTextField.keyboardType = .EmailAddress
+var passwordTextField = WDPopupTextField(title: "Password")
+passwordTextField.secureTextEntry = true
 let cancelAction = WDPopupAction(title: "Cancel", completionBlock: nil)
 let loginAction = WDPopupAction(title: "Login") { () -> Void in
-    print("Email = \(emailTextField.textField.text)")
-    print("Password = \(passwordTextField.textField.text)")
+    print("Email = \(emailTextField.text)")
+    print("Password = \(passwordTextField.text)")
 }
 let popup = WDPopup(title: "Login", textFields: [emailTextField, passwordTextField], actions: [cancelAction, loginAction])
 popup.present()
