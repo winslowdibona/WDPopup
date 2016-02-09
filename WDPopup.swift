@@ -35,7 +35,6 @@ struct WDPopupAction {
             }
         }
     }
-    
 }
 
 struct WDPopupTextField {
@@ -43,11 +42,45 @@ struct WDPopupTextField {
     var title : String!
     var textField : UITextField!
     
+    //Textfield Attributes
+    var backgroundColor : UIColor = UIColor(red: 0.0/255.0, green: 0.0/255.0, blue: 0.0/255.0, alpha: 0.7)
+    var textAlignment : NSTextAlignment = NSTextAlignment.Left
+    var textColor : UIColor = UIColor.whiteColor()
+    var textFont : UIFont = UIFont(name: "Helvetica", size: 15.0)!
+    var secureTextEntry : Bool = false
+    var clearButtonMode : UITextFieldViewMode = .Never
+    var clearsOnBeingEditing : Bool = false
+    var keyboardType : UIKeyboardType = .Default
+    var placeholderTextColor : UIColor = UIColor.whiteColor()
+    
+    
+    //Layer Attributes
+    var borderWidth : CGFloat = 0.0
+    var borderColor : UIColor = UIColor.clearColor()
+    var cornerRadius : CGFloat = 0.0
+    var masksToBounds : Bool = false
+    
     init(title : String) {
         self.title = title
         self.textField = UITextField()
     }
     
+    private func applyAppearance() {
+        textField.textColor = textColor
+        textField.font = textFont
+        textField.backgroundColor = backgroundColor
+        textField.textAlignment = textAlignment
+        textField.secureTextEntry = secureTextEntry
+        textField.clearButtonMode = clearButtonMode
+        textField.clearsOnBeginEditing = clearsOnBeingEditing
+        textField.keyboardType = keyboardType
+        textField.layer.borderWidth = borderWidth
+        textField.layer.borderColor = borderColor.CGColor
+        textField.layer.cornerRadius = cornerRadius
+        textField.layer.masksToBounds = masksToBounds
+        let string = NSAttributedString(string: title, attributes: [NSForegroundColorAttributeName : placeholderTextColor])
+        textField.attributedPlaceholder = string
+    }
 }
 
 struct WDMessagePopup {
@@ -221,11 +254,7 @@ class WDPopup: UIView {
                 let height : CGFloat = 24.0
                 let rect = CGRectMake(5.0, 30.0 + (CGFloat(i) * 60.0), width, height)
                 loginPopup.textFields[i].textField.frame = rect
-                loginPopup.textFields[i].textField.placeholder = loginPopup.textFields[i].title
-                loginPopup.textFields[i].textField.backgroundColor = popupBackgroundColor
-                
-                loginPopup.textFields[i].textField.textColor = textColor
-                loginPopup.textFields[i].textField.clearButtonMode = .WhileEditing
+                loginPopup.textFields[i].applyAppearance()
                 contentView.addSubview(loginPopup.textFields[i].textField)
             }
         }
