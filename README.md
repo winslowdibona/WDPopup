@@ -27,6 +27,7 @@ let loginAction = WDPopupAction(title: "Login") { () -> Void in
 let popup = WDPopup(title: "Login", textFields: [emailTextField, passwordTextField], actions: [cancelAction, loginAction])
 popup.present()
 ````
+More examples can be found in the Example Project.
 
 ####WDPopupTextField Appearance Attributes
 All of these have default values but you can customize as you like before presenting the popup
