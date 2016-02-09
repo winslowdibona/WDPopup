@@ -12,24 +12,55 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tap = UITapGestureRecognizer(target: self, action: "tapped")
-        view.addGestureRecognizer(tap)
     }
-
-    func tapped() {
-        let popupTextField = WDPopupTextField(title: "Action")
-        let popupAction = WDPopupAction(title: "Enter something") { () -> Void in
-            print(popupTextField.textField.text)
+    
+    @IBAction func simpleMessagePopup(sender: AnyObject) {
+        let action = WDPopupAction(title: "Ok") { () -> Void in
+            //do something here
         }
-        let popup = WDPopup(title: "Test", textFields: [popupTextField], actions: [popupAction])
+        let popup = WDPopup(title: "Simple Popup", message: "Popup with a simple message", actions: [action])
         popup.present()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func simpleInputPopup(sender: AnyObject) {
+        let firstTextField = WDPopupTextField(title: "First Text Field")
+        let secondTextField = WDPopupTextField(title: "Second Text Field")
+        let action = WDPopupAction(title: "Ok", textFields: [firstTextField, secondTextField]) { () -> Void in
+            print("firstTextField.text = \(firstTextField.textField.text)")
+            print("secondTextField.text = \(secondTextField.textField.text)")
+        }
+        let popup = WDPopup(title: "Simple Input Popup", textFields: [firstTextField, secondTextField], actions: [action])
+        popup.present()
     }
-
+    
+    @IBAction func loginPopup(sender: AnyObject) {
+        let emailTextField = WDPopupTextField(title: "Email")
+        emailTextField.textField.keyboardType = .EmailAddress
+        let passwordTextField = WDPopupTextField(title: "Password")
+        passwordTextField.textField.secureTextEntry = true
+        let cancelAction = WDPopupAction(title: "Cancel", completionBlock: nil)
+        let loginAction = WDPopupAction(title: "Login") { () -> Void in
+            print("Email = \(emailTextField.textField.text)")
+            print("Password = \(passwordTextField.textField.text)")
+        }
+        let popup = WDPopup(title: "Login", textFields: [emailTextField, passwordTextField], actions: [cancelAction, loginAction])
+        popup.present()
+    }
+    
+    @IBAction func customizedAppearanceMessagePopup(sender: AnyObject) {
+    }
+    
+    @IBAction func customizedApperanceInputPopup(sender: AnyObject) {
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }
 
